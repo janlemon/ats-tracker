@@ -386,6 +386,133 @@
     color:var(--primary);
   }
 
+  /* MODAL */
+  .modal-overlay {
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:rgba(0,0,0,0.5);
+    z-index:1000;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .modal-overlay.active {
+    display:flex;
+  }
+
+  .modal-content {
+    background:var(--surface);
+    border-radius:12px;
+    max-width:900px;
+    width:90%;
+    max-height:85vh;
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 20px 60px rgba(0,0,0,0.3);
+  }
+
+  .modal-header {
+    padding:20px 24px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+
+  .modal-title {
+    font-size:18px;
+    font-weight:600;
+    color:var(--text-main);
+  }
+
+  .modal-close {
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    font-size:20px;
+    color:var(--text-muted);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .modal-close:hover {
+    background:#f0f0f0;
+  }
+
+  .modal-body {
+    padding:24px;
+    overflow-y:auto;
+    flex:1;
+  }
+
+  .modal-footer {
+    padding:16px 24px;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+  }
+
+  .form-section {
+    margin-bottom:24px;
+  }
+
+  .form-section:last-child {
+    margin-bottom:0;
+  }
+
+  .form-section-title {
+    font-size:14px;
+    font-weight:600;
+    color:var(--text-main);
+    margin-bottom:12px;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--border);
+  }
+
+  .form-field {
+    margin-bottom:16px;
+  }
+
+  .form-field label {
+    display:block;
+    font-size:12px;
+    font-weight:500;
+    color:var(--text-main);
+    margin-bottom:6px;
+  }
+
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    width:100%;
+    padding:8px 12px;
+    border:1px solid #d0d5dd;
+    border-radius:6px;
+    font-size:13px;
+    font-family:inherit;
+  }
+
+  .form-field textarea {
+    min-height:80px;
+    resize:vertical;
+  }
+
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus {
+    outline:none;
+    border-color:var(--primary);
+  }
+
   .panel {
     background:var(--surface);
     border-radius:8px;
@@ -937,7 +1064,7 @@
         <div class="panel">
           <div class="panel-title">ATS Form Submission</div>
           <div class="command-bar">
-            <button class="cmd-btn">+ New Request</button>
+            <button class="cmd-btn" id="btnNewRequest">+ New Request</button>
             <button class="cmd-btn">Edit</button>
             <button class="cmd-btn">Delete</button>
             <button class="cmd-btn-primary">Submit for Approval</button>
@@ -1305,7 +1432,153 @@ Recommendation: APPROVE for Committee review"></textarea>
   </div><!-- app-body -->
 </div><!-- app-frame -->
 
+<!-- NEW ATS REQUEST MODAL -->
+<div class="modal-overlay" id="newRequestModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title">Create New ATS Request</div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    
+    <div class="modal-body">
+      <form id="atsForm">
+        
+        <!-- BASIC INFO -->
+        <div class="form-section">
+          <div class="form-section-title">Basic Information</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="form-field">
+              <label>Sponsor *</label>
+              <select required>
+                <option value="">Select sponsor...</option>
+                <option value="markets">Markets</option>
+                <option value="trading">Trading</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Request Type *</label>
+              <select required>
+                <option value="">Select type...</option>
+                <option value="new">New Algorithm</option>
+                <option value="modification">Modification</option>
+                <option value="decommission">Decommission</option>
+              </select>
+            </div>
+          </div>
+          
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="form-field">
+              <label>Trader / Constant Supervision *</label>
+              <input type="text" required placeholder="e.g., Jaap Smolders" />
+            </div>
+            <div class="form-field">
+              <label>Trader Backup *</label>
+              <input type="text" required placeholder="e.g., John D." />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label>Responsible Person *</label>
+            <input type="text" required placeholder="e.g., Angela S." />
+          </div>
+        </div>
+
+        <!-- DESK & BOOK -->
+        <div class="form-section">
+          <div class="form-section-title">Desk & Book Information</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="form-field">
+              <label>Desk Name *</label>
+              <input type="text" required placeholder="e.g., EQ – Structured Products" />
+            </div>
+            <div class="form-field">
+              <label>Book Name *</label>
+              <input type="text" required placeholder="e.g., EQ_STRAT_BOOK_01" />
+            </div>
+          </div>
+        </div>
+
+        <!-- TRADING DETAILS -->
+        <div class="form-section">
+          <div class="form-section-title">Trading Details</div>
+          
+          <div class="form-field">
+            <label>Products *</label>
+            <input type="text" required placeholder="e.g., Equity options, delta one, swaps" />
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="form-field">
+              <label>Venues *</label>
+              <input type="text" required placeholder="e.g., XETRA, LSE, Euronext" />
+            </div>
+            <div class="form-field">
+              <label>Front End *</label>
+              <input type="text" required placeholder="e.g., Murex / Internal UI" />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label>Proposed Go-Live Date *</label>
+            <input type="date" required />
+          </div>
+        </div>
+
+        <!-- RISK & LIMITS -->
+        <div class="form-section">
+          <div class="form-section-title">Risk & Limits</div>
+          
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="form-field">
+              <label>Daily VaR Limit</label>
+              <input type="text" placeholder="e.g., 2m EUR" />
+            </div>
+            <div class="form-field">
+              <label>Single-Name Limit</label>
+              <input type="text" placeholder="e.g., 1m EUR" />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label>PnL Split Rule per Trader</label>
+            <input type="text" placeholder="e.g., 50% Jaap / 50% Backup trader" />
+          </div>
+
+          <div class="form-field">
+            <label>Monitoring Approach</label>
+            <textarea placeholder="Describe monitoring setup (e.g., Real-time via Murex with daily reconciliation)"></textarea>
+          </div>
+        </div>
+
+        <!-- OPERATIONAL -->
+        <div class="form-section">
+          <div class="form-section-title">Operational Details</div>
+          
+          <div class="form-field">
+            <label>Kill Switch Responsible</label>
+            <input type="text" placeholder="e.g., Trading floor duty officer" />
+          </div>
+
+          <div class="form-field">
+            <label>Additional Notes</label>
+            <textarea placeholder="Any additional information, conditions, or remarks..."></textarea>
+          </div>
+        </div>
+
+      </form>
+    </div>
+    
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn-secondary">Save Draft</button>
+      <button class="btn-primary" onclick="submitATS()">Submit for Approval</button>
+    </div>
+  </div>
+</div>
+
 <script>
+  // Role tabs
   document.querySelectorAll('.role-tab').forEach(btn => {
     btn.addEventListener('click', () => {
       const role = btn.getAttribute('data-role');
@@ -1314,6 +1587,38 @@ Recommendation: APPROVE for Committee review"></textarea>
       document.querySelectorAll('.role-view').forEach(v => v.classList.remove('active'));
       document.getElementById('view-' + role).classList.add('active');
     });
+  });
+
+  // Modal functions
+  function openModal() {
+    document.getElementById('newRequestModal').classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('newRequestModal').classList.remove('active');
+  }
+
+  function submitATS() {
+    // Here you would handle form submission
+    alert('ATS Request submitted! (This would send to review teams and committee)');
+    closeModal();
+  }
+
+  // New Request button
+  document.getElementById('btnNewRequest')?.addEventListener('click', openModal);
+
+  // Close modal on overlay click
+  document.getElementById('newRequestModal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'newRequestModal') {
+      closeModal();
+    }
+  });
+
+  // Close modal on ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
   });
 </script>
 
