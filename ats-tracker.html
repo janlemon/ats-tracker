@@ -186,13 +186,204 @@
     color:var(--primary);
   }
 
+  /* VOTING SECTION */
+  .voting-grid {
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:10px;
+    margin-top:10px;
+  }
+
+  .voter-card {
+    padding:8px 12px;
+    border-radius:6px;
+    border:1px solid var(--border);
+    background:#fafbfc;
+    font-size:12px;
+  }
+
+  .voter-name {
+    font-weight:600;
+    color:var(--text-main);
+    margin-bottom:2px;
+  }
+
+  .voter-status {
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:11px;
+  }
+
   /* BODY LAYOUT */
   .app-body {
-    display:grid;
-    grid-template-columns: 280px minmax(0,1fr);
+    display:flex;
+    flex-direction:column;
     gap:16px;
     padding:16px;
     background:var(--bg);
+  }
+
+  /* MAIN CONTENT AREA */
+  .content-area {
+    display:grid;
+    grid-template-columns: 320px minmax(0,1fr);
+    gap:16px;
+  }
+
+  /* STATUS SIDEBAR */
+  .status-sidebar {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .status-card {
+    background:var(--surface);
+    border-radius:8px;
+    border:1px solid var(--border);
+    padding:14px;
+  }
+
+  .status-card-title {
+    font-size:13px;
+    font-weight:600;
+    color:var(--text-main);
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .status-icon {
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+  }
+
+  .status-icon.pending { background:#fff3cd; color:#856404; }
+  .status-icon.approved { background:#d4edda; color:#155724; }
+  .status-icon.waiting { background:#e0e3e8; color:#5a6c7d; }
+
+  .dept-status {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px 10px;
+    margin-bottom:6px;
+    border-radius:6px;
+    background:#f8f9fc;
+    font-size:12px;
+  }
+
+  .dept-status:last-child {
+    margin-bottom:0;
+  }
+
+  .dept-name {
+    font-weight:500;
+    color:var(--text-main);
+  }
+
+  .dept-email {
+    font-size:10px;
+    color:var(--text-muted);
+    margin-top:2px;
+  }
+
+  /* WORKFLOW STEPS */
+  .workflow-steps {
+    background:var(--surface);
+    border-radius:8px;
+    border:1px solid var(--border);
+    padding:16px;
+  }
+
+  .workflow-step {
+    display:flex;
+    gap:12px;
+    margin-bottom:20px;
+    position:relative;
+  }
+
+  .workflow-step:last-child {
+    margin-bottom:0;
+  }
+
+  .workflow-step:not(:last-child)::after {
+    content:"";
+    position:absolute;
+    left:14px;
+    top:32px;
+    bottom:-20px;
+    width:2px;
+    background:#e0e3e8;
+  }
+
+  .workflow-step.active::after {
+    background:var(--primary);
+  }
+
+  .step-number {
+    width:28px;
+    height:28px;
+    min-width:28px;
+    border-radius:50%;
+    background:#e0e3e8;
+    color:#5a6c7d;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:600;
+    position:relative;
+    z-index:1;
+  }
+
+  .workflow-step.completed .step-number {
+    background:#00a86b;
+    color:#fff;
+  }
+
+  .workflow-step.active .step-number {
+    background:var(--primary);
+    color:#fff;
+  }
+
+  .step-content {
+    flex:1;
+  }
+
+  .step-title {
+    font-size:13px;
+    font-weight:600;
+    color:var(--text-main);
+    margin-bottom:4px;
+  }
+
+  .step-description {
+    font-size:11px;
+    color:var(--text-muted);
+    margin-bottom:6px;
+  }
+
+  .step-participants {
+    display:flex;
+    flex-wrap:wrap;
+    gap:4px;
+    margin-top:6px;
+  }
+
+  .participant-tag {
+    padding:2px 8px;
+    border-radius:999px;
+    font-size:10px;
+    background:rgba(0,45,84,0.08);
+    color:var(--primary);
   }
 
   .panel {
@@ -577,276 +768,379 @@
       Request: <span>Publication doe expectation statistical</span> · ID: ATS-2025-0123
     </div>
     <div class="meta-right">
-      <div class="progress-label">Step 3 of 5 · Risk review</div>
+      <div class="progress-label">Step 3 of 5 · ATS Committee voting</div>
       <div class="progress-track">
         <div class="progress-fill"></div>
       </div>
       <div class="progress-steps">
-        <div class="progress-step done">Submitted</div>
-        <div class="progress-step done">Compliance</div>
-        <div class="progress-step current">Risk</div>
-        <div class="progress-step">IT</div>
-        <div class="progress-step">Committee</div>
+        <div class="progress-step done">Submit</div>
+        <div class="progress-step done">Review (C/R/IT)</div>
+        <div class="progress-step current">Committee Vote</div>
+        <div class="progress-step">Approved</div>
+        <div class="progress-step">TDO Notified</div>
       </div>
     </div>
   </div>
 
   <!-- ROLE TABS -->
   <div class="role-tabs">
-    <button class="role-tab active" data-role="trader">Trader</button>
-    <button class="role-tab" data-role="approver">Approver</button>
-    <button class="role-tab" data-role="committee">Committee</button>
+    <button class="role-tab active" data-role="trader">Trader View</button>
+    <button class="role-tab" data-role="reviewer">Reviewer (C/R/IT)</button>
+    <button class="role-tab" data-role="committee">ATS Committee</button>
+    <button class="role-tab" data-role="tdo">TDO View</button>
   </div>
 
   <!-- BODY -->
   <div class="app-body">
 
-    <!-- LEFT LIST -->
-    <div class="panel">
-      <div class="panel-title">Requests</div>
-      <div class="panel-subtitle">Showing pending requests</div>
-      <input class="search-input" placeholder="Search" />
-      <div class="ats-item">
-        <div class="avatar-circle">Pd</div>
-        <div>
-          <div class="ats-title">Publication doe expectation statistical</div>
-          <div class="ats-sub">Jaap Smolders · 14/01/2025</div>
+    <!-- WORKFLOW OVERVIEW (visible to all roles) -->
+    <div class="workflow-steps">
+      <div class="workflow-step completed">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">Trader submits ATS form</div>
+          <div class="step-description">Submitted: 14/01/2025 10:12</div>
+          <div class="step-participants">
+            <span class="participant-tag">📧 Email sent to: ATS Committee, Compliance, Risk, IT</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="workflow-step completed">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">Review by Compliance, Risk, IT</div>
+          <div class="step-description">Each department reviews and communicates with trader if needed</div>
+          <div class="step-participants">
+            <span class="participant-tag">✓ Compliance</span>
+            <span class="participant-tag">✓ Risk</span>
+            <span class="participant-tag">✓ IT</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="workflow-step active">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">Departments finalize wording & recommendation</div>
+          <div class="step-description">All 3 departments must approve before sending to Committee</div>
+          <div class="step-participants">
+            <span class="participant-tag">Waiting for final wording</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <div class="step-title">ATS Committee review & vote</div>
+          <div class="step-description">Suzana/Tomas, Lyubo, Angela - each member votes</div>
+          <div class="step-participants">
+            <span class="participant-tag">Suzana/Tomas</span>
+            <span class="participant-tag">Lyubo</span>
+            <span class="participant-tag">Angela</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <div class="step-title">Notification sent</div>
+          <div class="step-description">If approved, notify C, R, IT, TDO with wording</div>
+          <div class="step-participants">
+            <span class="participant-tag">📧 Compliance, Risk, IT, TDO</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- RIGHT SIDE -->
-    <div class="right">
+    <!-- CONTENT AREA -->
+    <div class="content-area">
+
+      <!-- LEFT: STATUS SIDEBAR -->
+      <div class="status-sidebar">
+        
+        <!-- DEPARTMENT STATUS -->
+        <div class="status-card">
+          <div class="status-card-title">
+            <span class="status-icon approved">✓</span>
+            Department Reviews
+          </div>
+          
+          <div class="dept-status">
+            <div>
+              <div class="dept-name">Compliance</div>
+              <div class="dept-email">compliance@ezpada.com</div>
+            </div>
+            <span class="badge badge-approved">Approved</span>
+          </div>
+
+          <div class="dept-status">
+            <div>
+              <div class="dept-name">Market Risk</div>
+              <div class="dept-email">marketrisk@ezpada.com</div>
+            </div>
+            <span class="badge badge-approved">Approved</span>
+          </div>
+
+          <div class="dept-status">
+            <div>
+              <div class="dept-name">IT</div>
+              <div class="dept-email">Lyubo (direct)</div>
+            </div>
+            <span class="badge badge-approved">Approved</span>
+          </div>
+        </div>
+
+        <!-- COMMITTEE STATUS -->
+        <div class="status-card">
+          <div class="status-card-title">
+            <span class="status-icon pending">⏳</span>
+            ATS Committee
+          </div>
+          
+          <div class="dept-status">
+            <div class="dept-name">Suzana / Tomas</div>
+            <span class="badge badge-pending">Pending</span>
+          </div>
+
+          <div class="dept-status">
+            <div class="dept-name">Lyubomir Gunev</div>
+            <span class="badge badge-approved">Approved</span>
+          </div>
+
+          <div class="dept-status">
+            <div class="dept-name">Angela McCormack</div>
+            <span class="badge badge-approved">Approved</span>
+          </div>
+        </div>
+
+        <!-- TDO NOTIFICATION -->
+        <div class="status-card">
+          <div class="status-card-title">
+            <span class="status-icon waiting">📋</span>
+            TDO Status
+          </div>
+          <div style="font-size:11px; color:var(--text-muted);">
+            Will be notified after Committee approval
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: ROLE-SPECIFIC CONTENT -->
+      <div class="right">
 
       <!-- TRADER VIEW -->
       <div class="role-view active" id="view-trader">
         <div class="panel">
+          <div class="panel-title">ATS Form Submission</div>
           <div class="command-bar">
-            <button class="cmd-btn">+ New</button>
+            <button class="cmd-btn">+ New Request</button>
             <button class="cmd-btn">Edit</button>
             <button class="cmd-btn">Delete</button>
+            <button class="cmd-btn-primary">Submit for Approval</button>
           </div>
         </div>
 
-        <div class="panel layout-main">
-          <!-- form -->
-          <div class="form-wrapper">
-            <div class="form-grid">
-              <div>
-                <div class="field-label">Sponsor</div>
-                <div class="field-input">Markets</div>
+        <div class="panel">
+          <div class="form-grid">
+            <div>
+              <div class="field-label">Sponsor</div>
+              <div class="field-input">Markets</div>
 
-                <div class="field-label">Trader / Constant supervision</div>
-                <div class="field-input">Jaap Smolders</div>
+              <div class="field-label">Trader / Constant supervision</div>
+              <div class="field-input">Jaap Smolders</div>
 
-                <div class="field-label">Responsible person</div>
-                <div class="field-input">Angela S.</div>
+              <div class="field-label">Responsible person</div>
+              <div class="field-input">Angela S.</div>
 
-                <div class="field-label">Desk name</div>
-                <div class="field-input">EQ – Structured Products</div>
+              <div class="field-label">Desk name</div>
+              <div class="field-input">EQ – Structured Products</div>
 
-                <div class="field-label">Venues</div>
-                <div class="field-input">XETRA, LSE, Euronext</div>
+              <div class="field-label">Venues</div>
+              <div class="field-input">XETRA, LSE, Euronext</div>
 
-                <div class="field-label">PnL split rule per trader</div>
-                <div class="field-input">50% Jaap / 50% Backup trader</div>
-
-                <div class="field-label">Kill switch responsible</div>
-                <div class="field-input">Trading floor duty officer</div>
-              </div>
-
-              <div>
-                <div class="field-label">Book name</div>
-                <div class="field-input">EQ_STRAT_BOOK_01</div>
-
-                <div class="field-label">Trader back up</div>
-                <div class="field-input">John D.</div>
-
-                <div class="field-label">Proposed go-live date</div>
-                <div class="field-input">01/02/2025</div>
-
-                <div class="field-label">Products</div>
-                <div class="field-input">Equity options, delta one, swaps</div>
-
-                <div class="field-label">Front end</div>
-                <div class="field-input">Murex / Internal UI</div>
-
-                <div class="field-label">Additional notes</div>
-                <div class="field-input">Pilot phase with reduced limits.</div>
-              </div>
+              <div class="field-label">PnL split rule per trader</div>
+              <div class="field-input">50% Jaap / 50% Backup trader</div>
             </div>
 
-            <div class="footer-buttons">
-              <button class="btn-secondary">Cancel</button>
-              <button class="btn-primary">Submit</button>
+            <div>
+              <div class="field-label">Book name</div>
+              <div class="field-input">EQ_STRAT_BOOK_01</div>
+
+              <div class="field-label">Trader back up</div>
+              <div class="field-input">John D.</div>
+
+              <div class="field-label">Proposed go-live date</div>
+              <div class="field-input">01/02/2025</div>
+
+              <div class="field-label">Products</div>
+              <div class="field-input">Equity options, delta one, swaps</div>
+
+              <div class="field-label">Front end</div>
+              <div class="field-input">Murex / Internal UI</div>
+
+              <div class="field-label">Additional notes</div>
+              <div class="field-input">Pilot phase with reduced limits.</div>
             </div>
           </div>
 
-          <!-- tracker + comments -->
-          <div class="tracker">
-            <div>
-              <div class="panel-title">Progress</div>
-              <div class="timeline-item completed">
-                <div class="timeline-title">Submitted</div>
-                <div class="timeline-sub">14/01/2025 10:12</div>
+          <div class="footer-buttons">
+            <button class="btn-secondary">Cancel</button>
+            <button class="btn-primary">Submit for Approval</button>
+          </div>
+        </div>
+
+        <!-- COMMUNICATION LOG -->
+        <div class="panel">
+          <div class="panel-title">Communication with Reviewers</div>
+          <div class="comments-panel">
+            <div class="comments-list">
+              <div class="comment-item">
+                <div class="comment-header">
+                  <div class="comment-avatar">C</div>
+                  <div class="comment-meta">
+                    Compliance · 14:30
+                  </div>
+                </div>
+                <div class="comment-text">
+                  Please clarify the limit monitoring frequency.
+                </div>
               </div>
-              <div class="timeline-item completed">
-                <div class="timeline-title">Compliance review</div>
-                <div class="timeline-sub">Approved</div>
-              </div>
-              <div class="timeline-item current">
-                <div class="timeline-title">Risk review</div>
-                <div class="timeline-sub">Waiting</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-title">IT review</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-title">ATS Committee</div>
+              <div class="comment-item">
+                <div class="comment-header">
+                  <div class="comment-avatar">JS</div>
+                  <div class="comment-meta">
+                    Jaap (You) · 14:45
+                  </div>
+                </div>
+                <div class="comment-text">
+                  Real-time monitoring via Murex with daily reconciliation.
+                </div>
               </div>
             </div>
-            <div>
-              <div class="comments-panel">
-                <div class="comments-header-row">
-                  <div class="comments-title">Comments</div>
-                  <div class="comments-counter">3 entries</div>
-                </div>
-                <div class="comments-list">
-                  <div class="comment-item">
-                    <div class="comment-header">
-                      <div class="comment-avatar">AS</div>
-                      <div class="comment-meta">
-                        Angela · <span class="comment-dept">Compliance</span> · 14:32
-                      </div>
-                    </div>
-                    <div class="comment-text">
-                      Please add explicit limit wording for intraday exposure.
-                    </div>
-                  </div>
-                  <div class="comment-item">
-                    <div class="comment-header">
-                      <div class="comment-avatar">LY</div>
-                      <div class="comment-meta">
-                        Lyubo · <span class="comment-dept">Risk</span> · 14:55
-                      </div>
-                    </div>
-                    <div class="comment-text">
-                      From risk perspective OK after adding VaR monitoring.
-                    </div>
-                  </div>
-                  <div class="comment-item">
-                    <div class="comment-header">
-                      <div class="comment-avatar">JS</div>
-                      <div class="comment-meta">
-                        Jaap · Trader · 15:12
-                      </div>
-                    </div>
-                    <div class="comment-text">
-                      Updated wording according to feedback.
-                    </div>
-                  </div>
-                </div>
-                <div class="actions">
-                  <textarea placeholder="Add comment"></textarea>
-                  <div class="actions-buttons">
-                    <button class="btn-primary">Send comment</button>
-                  </div>
-                </div>
+            <div class="actions">
+              <textarea placeholder="Reply to departments..."></textarea>
+              <div class="actions-buttons">
+                <button class="btn-primary">Send message</button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- APPROVER VIEW -->
-      <div class="role-view" id="view-approver">
+      <!-- REVIEWER VIEW (Compliance, Risk, IT) -->
+      <div class="role-view" id="view-reviewer">
         <div class="panel">
+          <div class="panel-title">Department Review</div>
           <div class="command-bar">
-            <button class="cmd-btn">Back</button>
+            <button class="cmd-btn">View Full Form</button>
+            <button class="cmd-btn-accent">Request Changes</button>
             <button class="cmd-btn-primary">Approve</button>
-            <button class="cmd-btn-accent">Return</button>
           </div>
         </div>
 
-        <div class="panel layout-main">
-          <!-- form (read-only / partial) -->
-          <div class="form-wrapper">
-            <div class="form-grid">
-              <div>
-                <div class="field-label">Sponsor</div>
-                <div class="field-input">Markets</div>
+        <div class="panel">
+          <div class="panel-title">Request Details - ATS-2025-0123</div>
+          <div class="form-grid">
+            <div>
+              <div class="field-label">Trader</div>
+              <div class="field-input">Jaap Smolders</div>
 
-                <div class="field-label">Trader</div>
-                <div class="field-input">Jaap Smolders</div>
+              <div class="field-label">Desk / Book</div>
+              <div class="field-input">EQ – Structured Products / EQ_STRAT_BOOK_01</div>
 
-                <div class="field-label">Responsible person</div>
-                <div class="field-input">Angela S.</div>
+              <div class="field-label">Products</div>
+              <div class="field-input">Equity options, delta one, swaps</div>
 
-                <div class="field-label">Desk / Book</div>
-                <div class="field-input">EQ – Structured Products / EQ_STRAT_BOOK_01</div>
-              </div>
-              <div>
-                <div class="field-label">Go-live date</div>
-                <div class="field-input">01/02/2025</div>
+              <div class="field-label">Venues</div>
+              <div class="field-input">XETRA, LSE, Euronext</div>
+            </div>
+            <div>
+              <div class="field-label">Go-live date</div>
+              <div class="field-input">01/02/2025</div>
 
-                <div class="field-label">Products</div>
-                <div class="field-input">Equity options, delta one, swaps</div>
+              <div class="field-label">Front end</div>
+              <div class="field-input">Murex / Internal UI</div>
 
-                <div class="field-label">Key limits</div>
-                <div class="field-input">Daily VaR 2m, single-name limit 1m</div>
-              </div>
+              <div class="field-label">Risk limits</div>
+              <div class="field-input">Daily VaR 2m, single-name 1m</div>
+
+              <div class="field-label">Monitoring</div>
+              <div class="field-input">Real-time via Murex</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEPARTMENT ASSESSMENTS -->
+        <div class="panel">
+          <div class="panel-title">Department Assessments</div>
+          
+          <div style="background:#f8f9fc; padding:12px; border-radius:6px; margin-bottom:12px;">
+            <div style="font-weight:600; margin-bottom:8px; font-size:12px;">Compliance Assessment</div>
+            <div class="dept-status">
+              <span>Status</span>
+              <span class="badge badge-approved">Approved</span>
+            </div>
+            <div style="font-size:12px; margin-top:8px; color:var(--text-main);">
+              All compliance requirements met. Documentation complete.
             </div>
           </div>
 
-          <div class="tracker">
-            <div>
-              <div class="panel-title">Progress</div>
-              <div class="timeline-item completed">
-                <div class="timeline-title">Submitted</div>
-              </div>
-              <div class="timeline-item current">
-                <div class="timeline-title">Department review</div>
-                <div class="timeline-sub">Your decision pending</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-title">Next departments</div>
-              </div>
+          <div style="background:#f8f9fc; padding:12px; border-radius:6px; margin-bottom:12px;">
+            <div style="font-weight:600; margin-bottom:8px; font-size:12px;">Market Risk Assessment</div>
+            <div class="dept-status">
+              <span>Status</span>
+              <span class="badge badge-approved">Approved</span>
+            </div>
+            <div style="font-size:12px; margin-top:8px; color:var(--text-main);">
+              Risk limits appropriate. VaR monitoring in place.
+            </div>
+          </div>
 
-              <div class="panel-title" style="margin-top:10px;">Departments</div>
-              <div class="badge-row"><span>Compliance</span><span class="badge badge-pending">Pending</span></div>
-              <div class="badge-row"><span>Risk</span><span class="badge badge-waiting">Waiting</span></div>
-              <div class="badge-row"><span>IT</span><span class="badge badge-waiting">Waiting</span></div>
-              <div class="badge-row"><span>Committee</span><span class="badge badge-waiting">Waiting</span></div>
+          <div style="background:#f8f9fc; padding:12px; border-radius:6px;">
+            <div style="font-weight:600; margin-bottom:8px; font-size:12px;">IT Assessment (Lyubo)</div>
+            <div class="dept-status">
+              <span>Status</span>
+              <span class="badge badge-pending">Your Review</span>
             </div>
-            <div>
-              <div class="comments-panel">
-                <div class="comments-header-row">
-                  <div class="comments-title">Comments & decision</div>
-                  <div class="comments-counter">1 entry</div>
-                </div>
-                <div class="comments-list">
-                  <div class="comment-item">
-                    <div class="comment-header">
-                      <div class="comment-avatar">JS</div>
-                      <div class="comment-meta">
-                        Jaap · Trader · 10:12
-                      </div>
-                    </div>
-                    <div class="comment-text">
-                      Initial request created.
-                    </div>
-                  </div>
-                </div>
-                <div class="panel-title" style="margin:6px 0 4px;">Decision</div>
-                <div class="actions">
-                  <textarea placeholder="Comment"></textarea>
-                  <div class="actions-buttons">
-                    <button class="btn-return">Return</button>
-                    <button class="btn-approve">Approve</button>
-                  </div>
-                </div>
+            <div style="margin-top:8px;">
+              <textarea style="width:100%; min-height:60px; border:1px solid #d0d5dd; border-radius:4px; padding:8px; font-size:12px;" placeholder="Add your IT assessment..."></textarea>
+              <div class="actions-buttons" style="margin-top:8px;">
+                <button class="btn-return">Request Changes</button>
+                <button class="btn-approve">Approve</button>
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- FINALIZE WORDING -->
+        <div class="panel">
+          <div class="panel-title">Finalize Recommendation Wording</div>
+          <div class="panel-subtitle">All 3 departments must approve before this can be sent to ATS Committee</div>
+          
+          <div class="dept-status" style="margin-bottom:12px;">
+            <span>Ready to send?</span>
+            <span class="badge badge-waiting">Waiting for all approvals</span>
+          </div>
+
+          <textarea style="width:100%; min-height:100px; border:1px solid #d0d5dd; border-radius:4px; padding:12px; font-size:12px;" placeholder="Combined recommendation wording for ATS Committee...
+
+Example:
+All review departments (Compliance, Market Risk, IT) have assessed ATS-2025-0123.
+
+Assessment summary:
+✓ Compliance: All regulatory requirements met
+✓ Risk: Limits appropriate, monitoring confirmed  
+✓ IT: Technical validation complete
+
+Recommendation: APPROVE for Committee review"></textarea>
+          
+          <div class="footer-buttons">
+            <button class="btn-secondary">Save Draft</button>
+            <button class="btn-primary" disabled>Send to ATS Committee</button>
           </div>
         </div>
       </div>
@@ -854,133 +1148,155 @@
       <!-- COMMITTEE VIEW -->
       <div class="role-view" id="view-committee">
         <div class="panel">
+          <div class="panel-title">ATS Committee - Vote Required</div>
           <div class="command-bar">
-            <button class="cmd-btn">Back</button>
-            <button class="cmd-btn-primary">Final approve</button>
-            <button class="cmd-btn-accent">Return</button>
+            <button class="cmd-btn">View Full Details</button>
+            <button class="cmd-btn-accent">Reject</button>
+            <button class="cmd-btn-primary">Approve</button>
           </div>
         </div>
 
-        <div class="panel layout-main">
-          <div class="form-wrapper">
-            <div class="panel-title">Summary</div>
-            <ul style="font-size:12px; padding-left:18px; color:var(--text-main); margin-top:4px;">
-              <li>Compliance – approved</li>
-              <li>Risk – approved</li>
-              <li>IT – approved</li>
-            </ul>
-            <div class="form-grid" style="margin-top:10px;">
-              <div>
-                <div class="field-label">Trader</div>
-                <div class="field-input">Jaap Smolders</div>
+        <!-- DEPARTMENTS RECOMMENDATION -->
+        <div class="panel">
+          <div class="panel-title">Departments Recommendation</div>
+          <div style="background:#d4edda; border:1px solid #c3e6cb; padding:14px; border-radius:6px; font-size:12px; color:#155724; margin-bottom:12px;">
+            All review departments (Compliance, Market Risk, IT) have assessed ATS-2025-0123.
+            <br><br>
+            <strong>Assessment summary:</strong><br>
+            ✓ Compliance: All regulatory requirements met<br>
+            ✓ Risk: Limits appropriate, monitoring confirmed<br>
+            ✓ IT: Technical validation complete<br>
+            <br>
+            <strong>Recommendation: APPROVE</strong>
+          </div>
 
-                <div class="field-label">Desk / Book</div>
-                <div class="field-input">EQ – Structured Products / EQ_STRAT_BOOK_01</div>
+          <div class="form-grid">
+            <div>
+              <div class="field-label">Trader</div>
+              <div class="field-input">Jaap Smolders</div>
+
+              <div class="field-label">Desk / Book</div>
+              <div class="field-input">EQ – Structured Products / EQ_STRAT_BOOK_01</div>
+            </div>
+            <div>
+              <div class="field-label">Products</div>
+              <div class="field-input">Equity options, delta one, swaps</div>
+
+              <div class="field-label">Go-live date</div>
+              <div class="field-input">01/02/2025</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COMMITTEE VOTES -->
+        <div class="panel">
+          <div class="panel-title">Committee Members Votes</div>
+          
+          <div class="voting-grid">
+            <div class="voter-card">
+              <div class="voter-name">Suzana Hakobjan / Tomas</div>
+              <div class="voter-status">
+                <span class="badge badge-pending">Pending vote</span>
               </div>
-              <div>
-                <div class="field-label">Main products</div>
-                <div class="field-input">Equity options, delta one, swaps</div>
-
-                <div class="field-label">Go-live date</div>
-                <div class="field-input">01/02/2025</div>
+            </div>
+            <div class="voter-card">
+              <div class="voter-name">Lyubomir Gunev</div>
+              <div class="voter-status">
+                <span class="badge badge-approved">Approved</span>
+                <span style="color:var(--text-muted);">15:20</span>
+              </div>
+            </div>
+            <div class="voter-card">
+              <div class="voter-name">Angela McCormack</div>
+              <div class="voter-status">
+                <span class="badge badge-approved">Approved</span>
+                <span style="color:var(--text-muted);">15:25</span>
               </div>
             </div>
           </div>
 
-          <div class="tracker">
-            <div>
-              <div class="comments-panel">
-                <div class="comments-header-row">
-                  <div class="comments-title">Status &amp; comments</div>
-                  <div class="comments-counter">3 departments</div>
-                </div>
-                <div class="comments-list">
-                  <!-- Compliance -->
-                  <div class="dept-comment">
-                    <div class="badge-row">
-                      <span>Compliance</span>
-                      <span class="badge badge-approved">Approved</span>
-                    </div>
-                    <div class="comment-item">
-                      <div class="comment-header">
-                        <div class="comment-avatar">AS</div>
-                        <div class="comment-meta">
-                          Angela · Compliance · 09:45
-                        </div>
-                      </div>
-                      <div class="comment-text">
-                        Compliance checks completed, no further remarks.
-                      </div>
-                    </div>
-                  </div>
+          <div style="margin-top:16px; padding:12px; background:#fff3cd; border:1px solid #ffc107; border-radius:6px; font-size:12px;">
+            <strong>Your vote required</strong> (Suzana/Tomas)<br>
+            After all members vote, notification will be sent to Compliance, Risk, IT, TDO
+          </div>
 
-                  <!-- Risk -->
-                  <div class="dept-comment">
-                    <div class="badge-row">
-                      <span>Risk</span>
-                      <span class="badge badge-approved">Approved</span>
-                    </div>
-                    <div class="comment-item">
-                      <div class="comment-header">
-                        <div class="comment-avatar">LY</div>
-                        <div class="comment-meta">
-                          Lyubo · Risk · 10:05
-                        </div>
-                      </div>
-                      <div class="comment-text">
-                        Risk appetite within policy limits.
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- IT -->
-                  <div class="dept-comment">
-                    <div class="badge-row">
-                      <span>IT</span>
-                      <span class="badge badge-approved">Approved</span>
-                    </div>
-                    <div class="comment-item">
-                      <div class="comment-header">
-                        <div class="comment-avatar">IT</div>
-                        <div class="comment-meta">
-                          IT Dept · 10:20
-                        </div>
-                      </div>
-                      <div class="comment-text">
-                        Technical implementation validated, no blocking issues.
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Committee -->
-                  <div class="dept-comment">
-                    <div class="badge-row">
-                      <span>Committee</span>
-                      <span class="badge badge-pending">Pending</span>
-                    </div>
-                    <div class="comment-item">
-                      <div class="comment-text">
-                        No committee decision yet.
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
+          <div style="margin-top:12px;">
+            <textarea style="width:100%; min-height:60px; border:1px solid #d0d5dd; border-radius:4px; padding:8px; font-size:12px;" placeholder="Optional comment with your vote..."></textarea>
+            <div class="footer-buttons">
+              <button class="btn-return">Reject</button>
+              <button class="btn-primary">Approve</button>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <div>
-              <div class="panel-title">Final wording</div>
-              <div class="actions">
-                <textarea></textarea>
-                <div class="actions-buttons">
-                  <button class="btn-return">Return</button>
-                  <button class="btn-approve">Approve &amp; send</button>
-                </div>
-              </div>
+      <!-- TDO VIEW -->
+      <div class="role-view" id="view-tdo">
+        <div class="panel">
+          <div class="panel-title">TDO - Approval Notification</div>
+          <div class="panel-subtitle">Read-only view - You receive notifications after Committee approval</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Approved Request - Ready for Setup</div>
+          
+          <div style="background:#d4edda; border:1px solid #c3e6cb; padding:14px; border-radius:6px; margin-bottom:16px;">
+            <div style="font-weight:600; font-size:13px; color:#155724; margin-bottom:8px;">
+              ✓ ATS Request APPROVED by Committee
+            </div>
+            <div style="font-size:12px; color:#155724;">
+              Request ID: ATS-2025-0123<br>
+              Approved: 15/01/2025 15:45<br>
+              All committee members voted: Approved
             </div>
           </div>
 
+          <div class="form-grid">
+            <div>
+              <div class="field-label">Trader</div>
+              <div class="field-input">Jaap Smolders</div>
+
+              <div class="field-label">Desk / Book</div>
+              <div class="field-input">EQ – Structured Products / EQ_STRAT_BOOK_01</div>
+
+              <div class="field-label">Products</div>
+              <div class="field-input">Equity options, delta one, swaps</div>
+
+              <div class="field-label">Venues</div>
+              <div class="field-input">XETRA, LSE, Euronext</div>
+            </div>
+            <div>
+              <div class="field-label">Go-live date</div>
+              <div class="field-input">01/02/2025</div>
+
+              <div class="field-label">Front end</div>
+              <div class="field-input">Murex / Internal UI</div>
+
+              <div class="field-label">Risk limits</div>
+              <div class="field-input">Daily VaR 2m, single-name 1m</div>
+
+              <div class="field-label">Monitoring</div>
+              <div class="field-input">Real-time via Murex</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Approval Wording & Conditions</div>
+          <div style="background:#f8f9fc; padding:14px; border-radius:6px; font-size:12px; color:var(--text-main);">
+            All review departments (Compliance, Market Risk, IT) have approved this request.
+            <br><br>
+            <strong>Conditions:</strong><br>
+            • Real-time monitoring via Murex required<br>
+            • Daily VaR limit: 2m EUR<br>
+            • Single-name exposure limit: 1m EUR<br>
+            • Standard post-trade reporting applies
+          </div>
+
+          <div style="background:#fff3cd; border:1px solid #ffc107; padding:14px; border-radius:6px; margin-top:12px; font-size:12px;">
+            <strong>⚠️ TDO Action Required:</strong><br>
+            Proceed with algorithm account setup according to approved specifications.
+          </div>
         </div>
       </div>
 
