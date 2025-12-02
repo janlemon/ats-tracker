@@ -897,42 +897,45 @@
   }
 
   .comment-item {
-    padding:6px 0;
+    padding:10px 0;
     border-bottom:1px solid #eef0f4;
   }
 
   .comment-item:last-child {
     border-bottom:none;
+    padding-bottom:0;
   }
 
   .comment-header {
     display:flex;
-    align-items:center;
+    align-items:flex-start;
     gap:8px;
-    margin-bottom:2px;
+    margin-bottom:0;
   }
 
   .comment-avatar {
-    width:22px;
-    height:22px;
+    width:28px;
+    height:28px;
+    min-width:28px;
     border-radius:50%;
     background:#e0e5f2;
     color:var(--primary);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:11px;
+    font-size:12px;
     font-weight:600;
   }
 
   .comment-meta {
-    font-size:11px;
+    font-size:10px;
     color:var(--text-muted);
   }
 
   .comment-text {
     font-size:12px;
     color:var(--text-main);
+    line-height:1.4;
   }
 
   .comment-dept {
@@ -1141,31 +1144,66 @@
           <div class="panel-title">Communication with Reviewers</div>
           <div class="comments-panel">
             <div class="comments-list">
+              
+              <!-- Compliance message -->
               <div class="comment-item">
                 <div class="comment-header">
-                  <div class="comment-avatar">C</div>
-                  <div class="comment-meta">
-                    Compliance · 14:30
+                  <div class="comment-avatar" style="background:#ffc107; color:#fff;">C</div>
+                  <div style="flex:1;">
+                    <div style="font-weight:600; font-size:11px; color:var(--text-main);">Compliance</div>
+                    <div class="comment-meta">14:30 · 14/01/2025</div>
                   </div>
                 </div>
-                <div class="comment-text">
+                <div class="comment-text" style="margin-top:6px; padding:8px; background:#fff; border-left:3px solid #ffc107; border-radius:3px;">
                   Please clarify the limit monitoring frequency.
                 </div>
               </div>
+
+              <!-- Your reply -->
               <div class="comment-item">
                 <div class="comment-header">
-                  <div class="comment-avatar">JS</div>
-                  <div class="comment-meta">
-                    Jaap (You) · 14:45
+                  <div class="comment-avatar" style="background:var(--primary);">JS</div>
+                  <div style="flex:1;">
+                    <div style="font-weight:600; font-size:11px; color:var(--text-main);">Jaap Smolders <span style="color:var(--accent); font-size:10px;">(You)</span></div>
+                    <div class="comment-meta">14:45 · 14/01/2025</div>
                   </div>
                 </div>
-                <div class="comment-text">
+                <div class="comment-text" style="margin-top:6px; padding:8px; background:#fff; border-left:3px solid var(--primary); border-radius:3px;">
                   Real-time monitoring via Murex with daily reconciliation.
                 </div>
               </div>
+
+              <!-- Risk message -->
+              <div class="comment-item">
+                <div class="comment-header">
+                  <div class="comment-avatar" style="background:#e74c3c; color:#fff;">R</div>
+                  <div style="flex:1;">
+                    <div style="font-weight:600; font-size:11px; color:var(--text-main);">Market Risk</div>
+                    <div class="comment-meta">15:10 · 14/01/2025</div>
+                  </div>
+                </div>
+                <div class="comment-text" style="margin-top:6px; padding:8px; background:#fff; border-left:3px solid #e74c3c; border-radius:3px;">
+                  VaR limits look good. Confirm single-name concentration limit.
+                </div>
+              </div>
+
+              <!-- Your reply -->
+              <div class="comment-item">
+                <div class="comment-header">
+                  <div class="comment-avatar" style="background:var(--primary);">JS</div>
+                  <div style="flex:1;">
+                    <div style="font-weight:600; font-size:11px; color:var(--text-main);">Jaap Smolders <span style="color:var(--accent); font-size:10px;">(You)</span></div>
+                    <div class="comment-meta">15:20 · 14/01/2025</div>
+                  </div>
+                </div>
+                <div class="comment-text" style="margin-top:6px; padding:8px; background:#fff; border-left:3px solid var(--primary); border-radius:3px;">
+                  Single-name limit is 1m EUR max per issuer.
+                </div>
+              </div>
+
             </div>
             <div class="actions">
-              <textarea placeholder="Reply to departments..."></textarea>
+              <textarea placeholder="Type your message to reviewers..."></textarea>
               <div class="actions-buttons">
                 <button class="btn-primary">Send message</button>
               </div>
