@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ATS – Preview</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  :root {
+    --primary: rgb(0,45,84);
+    --accent: rgb(228,0,70);
+    --bg: #f4f4f7;
+    --surface: #ffffff;
+    --border: #e0e3e8;
+    --text-main: #25303b;
+    --text-muted: #86929d;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+  }
+
+  .app-frame {
+    margin: 32px;
+    background: var(--surface);
+    border-radius: 10px;
+    box-shadow: 0 14px 35px rgba(15,23,42,0.16);
+    overflow: hidden;
+  }
+
+  /* HEADER */
+  .app-header {
+    background: var(--primary);
+    color: #fff;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .app-title-block span:first-child {
+    font-size: 13px;
+    opacity: .75;
+    display: block;
+  }
+  .app-title-block span:last-child {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .header-right {
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+
+  .user-block {
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    font-size:11px;
+  }
+
+  .user-name {
+    font-weight:600;
+    font-size:12px;
+  }
+
+  .user-team {
+    opacity:0.85;
+  }
+
+  .status-pill {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    background: rgba(255,255,255,0.12);
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+  }
+
+  /* META ROW + PROGRESS */
+  .app-meta {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px 24px 6px;
+    background:#f8f9fc;
+    border-bottom:1px solid var(--border);
+    gap:16px;
+  }
+
+  .meta-left {
+    font-size:12px;
+    color:var(--text-muted);
+  }
+
+  .meta-left span {
+    color:var(--text-main);
+    font-weight:500;
+  }
+
+  .meta-right {
+    flex:1;
+    max-width:480px;
+  }
+
+  .progress-label {
+    font-size:11px;
+    color:var(--text-muted);
+    margin-bottom:4px;
+    text-align:right;
+  }
+
+  .progress-track {
+    width:100%;
+    height:6px;
+    border-radius:999px;
+    background:#e2e6f0;
+    overflow:hidden;
+  }
+
+  .progress-fill {
+    height:100%;
+    width:60%; /* tady si můžeš měnit procenta */
+    background:linear-gradient(90deg, var(--primary), var(--accent));
+  }
+
+  .progress-steps {
+    display:flex;
+    justify-content:space-between;
+    margin-top:4px;
+    font-size:10px;
+    color:var(--text-muted);
+  }
+
+  .progress-step {
+    position:relative;
+    padding-top:2px;
+  }
+
+  .progress-step::before {
+    content:"";
+    position:absolute;
+    top:-6px;
+    left:50%;
+    transform:translateX(-50%);
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#cfd4e0;
+  }
+
+  .progress-step.done::before { background:#00a86b; }
+  .progress-step.current::before { background:var(--primary); }
+
+  /* ROLE TABS */
+  .role-tabs {
+    display:flex;
+    gap:4px;
+    padding: 6px 16px 6px;
+    border-bottom:1px solid var(--border);
+    background:#fafbfc;
+  }
+
+  .role-tab {
+    padding:6px 14px;
+    border-radius:999px;
+    border:1px solid transparent;
+    font-size:12px;
+    cursor:pointer;
+    background:transparent;
+    color:var(--text-muted);
+  }
+  .role-tab.active {
+    background:rgba(0,45,84,.08);
+    border-color:var(--primary);
+    color:var(--primary);
+  }
+
+  /* BODY LAYOUT */
+  .app-body {
+    display:grid;
+    grid-template-columns: 280px minmax(0,1fr);
+    gap:16px;
+    padding:16px;
+    background:var(--bg);
+  }
+
+  .panel {
+    background:var(--surface);
+    border-radius:8px;
+    border:1px solid var(--border);
+    padding:12px 16px;
+  }
+
+  .panel-title {
+    font-size:13px;
+    font-weight:600;
+    color:var(--text-main);
+    margin-bottom:8px;
+  }
+
+  .panel-subtitle {
+    font-size:11px;
+    color:var(--text-muted);
+    margin-top:-4px;
+    margin-bottom:8px;
+  }
+
+  /* LEFT LIST */
+  .search-input {
+    width:100%;
+    padding:6px 10px;
+    border-radius:4px;
+    border:1px solid #d0d5dd;
+    font-size:13px;
+    margin-bottom:10px;
+  }
+
+  .ats-item {
+    display:flex;
+    gap:10px;
+    padding:9px 6px;
+    border-radius:6px;
+    cursor:pointer;
+  }
+
+  .ats-item:hover {
+    background:#f4f6fb;
+  }
+
+  .avatar-circle {
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:#19a974;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:600;
+  }
+
+  .ats-title {
+    font-size:13px;
+    font-weight:600;
+    color:var(--text-main);
+  }
+  .ats-sub {
+    font-size:11px;
+    color:var(--text-muted);
+  }
+
+  /* RIGHT SIDE */
+  .right {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .command-bar {
+    display:flex;
+    gap:8px;
+    border-bottom:1px solid var(--border);
+    padding-bottom:6px;
+  }
+
+  .cmd-btn {
+    padding:5px 13px;
+    border-radius:4px;
+    border:1px solid #c7ccd4;
+    font-size:12px;
+    background:#f5f6fa;
+    cursor:pointer;
+  }
+
+  .cmd-btn-primary {
+    background:var(--primary);
+    border-color:var(--primary);
+    color:#fff;
+  }
+
+  .cmd-btn-accent {
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#fff;
+  }
+
+  .layout-main {
+    display:grid;
+    grid-template-rows: auto 230px;
+    gap:12px;
+  }
+
+  .form-grid {
+    display:grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap:16px 24px;
+    font-size:12px;
+  }
+
+  .field-label {
+    color:var(--text-main);
+    margin-bottom:4px;
+  }
+
+  .field-input {
+    min-height:26px;
+    border-radius:4px;
+    border:1px solid #dde1e8;
+    background:#ffffff;
+    padding:4px 8px;
+    display:flex;
+    align-items:center;
+    font-size:12px;
+    color: var(--text-main);
+  }
+
+  .footer-buttons {
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:14px;
+  }
+
+  .btn-secondary {
+    padding:6px 14px;
+    border-radius:4px;
+    border:1px solid #c7ccd4;
+    background:#fff;
+    font-size:12px;
+  }
+
+  .btn-primary {
+    padding:6px 16px;
+    border-radius:4px;
+    border:none;
+    background:var(--primary);
+    color:#fff;
+    font-size:12px;
+  }
+
+  /* SCROLL WRAPPER FOR FORM */
+  .form-wrapper {
+    max-height: 260px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  .form-wrapper::-webkit-scrollbar {
+    width: 6px;
+  }
+  .form-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .form-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.15);
+    border-radius: 10px;
+  }
+
+  /* TRACKER + COMMENTS */
+  .tracker {
+    display:grid;
+    grid-template-columns: 1.4fr 1.1fr;
+    gap:12px;
+    font-size:12px;
+  }
+
+  .timeline-item {
+    position:relative;
+    padding-left:18px;
+    margin-bottom:6px;
+  }
+  .timeline-item::before {
+    content:"";
+    position:absolute;
+    left:5px;
+    top:4px;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#cfd4e0;
+  }
+  .timeline-item.completed::before { background:#00a86b; }
+  .timeline-item.current::before { background:var(--primary); }
+
+  .timeline-title { font-weight:500; color:var(--text-main); }
+  .timeline-sub   { font-size:11px; color:var(--text-muted); }
+
+  .badge-row {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:5px;
+  }
+
+  .badge {
+    padding:2px 8px;
+    border-radius:999px;
+    font-size:11px;
+  }
+  .badge-approved { background:rgba(0,168,107,0.15); color:#008f64; }
+  .badge-pending  { background:rgba(255,181,0,0.18); color:#a66b00; }
+  .badge-waiting  { background:rgba(0,45,84,0.08); color:var(--primary); }
+  .badge-rejected { background:rgba(231,76,60,0.18); color:#c0392b; }
+
+  .actions textarea {
+    width:100%;
+    min-height:70px;
+    resize:vertical;
+    border-radius:4px;
+    border:1px solid #d0d5dd;
+    padding:6px 8px;
+    font-size:12px;
+    margin-bottom:6px;
+  }
+
+  .actions-buttons {
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+  }
+
+  .btn-approve {
+    padding:5px 14px;
+    border-radius:4px;
+    border:none;
+    background:#00a86b;
+    color:#fff;
+    font-size:12px;
+    cursor:pointer;
+  }
+
+  .btn-return {
+    padding:5px 14px;
+    border-radius:4px;
+    border:none;
+    background:#e74c3c;
+    color:#fff;
+    font-size:12px;
+    cursor:pointer;
+  }
+
+  /* COMMENTS */
+  .comments-panel {
+    margin-top:4px;
+    background:#f8f9fc;
+    border-radius:8px;
+    padding:8px 10px;
+    border:1px solid #e0e3e8;
+  }
+
+  .comments-header-row {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:4px;
+  }
+
+  .comments-title {
+    font-size:12px;
+    font-weight:600;
+    color:var(--text-main);
+  }
+
+  .comments-counter {
+    font-size:11px;
+    color:var(--text-muted);
+  }
+
+  .comments-list {
+    max-height:120px;
+    overflow:auto;
+    margin-bottom:6px;
+    padding-right:4px;
+  }
+
+  .comments-list::-webkit-scrollbar {
+    width: 6px;
+  }
+  .comments-list::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.15);
+    border-radius: 10px;
+  }
+
+  .comment-item {
+    padding:6px 0;
+    border-bottom:1px solid #eef0f4;
+  }
+
+  .comment-item:last-child {
+    border-bottom:none;
+  }
+
+  .comment-header {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:2px;
+  }
+
+  .comment-avatar {
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:#e0e5f2;
+    color:var(--primary);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:600;
+  }
+
+  .comment-meta {
+    font-size:11px;
+    color:var(--text-muted);
+  }
+
+  .comment-text {
+    font-size:12px;
+    color:var(--text-main);
+  }
+
+  .comment-dept {
+    padding:1px 6px;
+    border-radius:999px;
+    font-size:10px;
+    background:rgba(0,45,84,0.06);
+    color:var(--primary);
+  }
+
+  .dept-comment {
+    margin-bottom:6px;
+  }
+  .dept-comment:last-child {
+    margin-bottom:0;
+  }
+
+  .role-view { display:none; }
+  .role-view.active { display:block; }
+</style>
+</head>
+<body>
+
+<div class="app-frame">
+
+  <!-- HEADER -->
+  <div class="app-header">
+    <div class="app-title-block">
+      <span>Application</span>
+      <span>ATS</span>
+    </div>
+    <div class="header-right">
+      <div class="user-block">
+        <div class="user-name">Jaap Smolders</div>
+        <div class="user-team">Logged in · Risk team</div>
+      </div>
+      <div class="status-pill">In review</div>
+      <div class="avatar"></div>
+    </div>
+  </div>
+
+  <!-- META + PROGRESS -->
+  <div class="app-meta">
+    <div class="meta-left">
+      Request: <span>Publication doe expectation statistical</span> · ID: ATS-2025-0123
+    </div>
+    <div class="meta-right">
+      <div class="progress-label">Step 3 of 5 · Risk review</div>
+      <div class="progress-track">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="progress-steps">
+        <div class="progress-step done">Submitted</div>
+        <div class="progress-step done">Compliance</div>
+        <div class="progress-step current">Risk</div>
+        <div class="progress-step">IT</div>
+        <div class="progress-step">Committee</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROLE TABS -->
+  <div class="role-tabs">
+    <button class="role-tab active" data-role="trader">Trader</button>
+    <button class="role-tab" data-role="approver">Approver</button>
+    <button class="role-tab" data-role="committee">Committee</button>
+  </div>
+
+  <!-- BODY -->
+  <div class="app-body">
+
+    <!-- LEFT LIST -->
+    <div class="panel">
+      <div class="panel-title">Requests</div>
+      <div class="panel-subtitle">Showing pending requests</div>
+      <input class="search-input" placeholder="Search" />
+      <div class="ats-item">
+        <div class="avatar-circle">Pd</div>
+        <div>
+          <div class="ats-title">Publication doe expectation statistical</div>
+          <div class="ats-sub">Jaap Smolders · 14/01/2025</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+
+      <!-- TRADER VIEW -->
+      <div class="role-view active" id="view-trader">
+        <div class="panel">
+          <div class="command-bar">
+            <button class="cmd-btn">+ New</button>
+            <button class="cmd-btn">Edit</button>
+            <button class="cmd-btn">Delete</button>
+          </div>
+        </div>
+
+        <div class="panel layout-main">
+          <!-- form -->
+          <div class="form-wrapper">
+            <div class="form-grid">
+              <div>
+                <div class="field-label">Sponsor</div>
+                <div class="field-input">Markets</div>
+
+                <div class="field-label">Trader / Constant supervision</div>
+                <div class="field-input">Jaap Smolders</div>
+
+                <div class="field-label">Responsible person</div>
+                <div class="field-input">Angela S.</div>
+
+                <div class="field-label">Desk name</div>
+                <div class="field-input">EQ – Structured Products</div>
+
+                <div class="field-label">Venues</div>
+                <div class="field-input">XETRA, LSE, Euronext</div>
+
+                <div class="field-label">PnL split rule per trader</div>
+                <div class="field-input">50% Jaap / 50% Backup trader</div>
+
+                <div class="field-label">Kill switch responsible</div>
+                <div class="field-input">Trading floor duty officer</div>
+              </div>
+
+              <div>
+                <div class="field-label">Book name</div>
+                <div class="field-input">EQ_STRAT_BOOK_01</div>
+
+                <div class="field-label">Trader back up</div>
+                <div class="field-input">John D.</div>
+
+                <div class="field-label">Proposed go-live date</div>
+                <div class="field-input">01/02/2025</div>
+
+                <div class="field-label">Products</div>
+                <div class="field-input">Equity options, delta one, swaps</div>
+
+                <div class="field-label">Front end</div>
+                <div class="field-input">Murex / Internal UI</div>
+
+                <div class="field-label">Additional notes</div>
+                <div class="field-input">Pilot phase with reduced limits.</div>
+              </div>
+            </div>
+
+            <div class="footer-buttons">
+              <button class="btn-secondary">Cancel</button>
+              <button class="btn-primary">Submit</button>
+            </div>
+          </div>
+
+          <!-- tracker + comments -->
+          <div class="tracker">
+            <div>
+              <div class="panel-title">Progress</div>
+              <div class="timeline-item completed">
+                <div class="timeline-title">Submitted</div>
+                <div class="timeline-sub">14/01/2025 10:12</div>
+              </div>
+              <div class="timeline-item completed">
+                <div class="timeline-title">Compliance review</div>
+                <div class="timeline-sub">Approved</div>
+              </div>
+              <div class="timeline-item current">
+                <div class="timeline-title">Risk review</div>
+                <div class="timeline-sub">Waiting</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-title">IT review</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-title">ATS Committee</div>
+              </div>
+            </div>
+            <div>
+              <div class="comments-panel">
+                <div class="comments-header-row">
+                  <div class="comments-title">Comments</div>
+                  <div class="comments-counter">3 entries</div>
+                </div>
+                <div class="comments-list">
+                  <div class="comment-item">
+                    <div class="comment-header">
+                      <div class="comment-avatar">AS</div>
+                      <div class="comment-meta">
+                        Angela · <span class="comment-dept">Compliance</span> · 14:32
+                      </div>
+                    </div>
+                    <div class="comment-text">
+                      Please add explicit limit wording for intraday exposure.
+                    </div>
+                  </div>
+                  <div class="comment-item">
+                    <div class="comment-header">
+                      <div class="comment-avatar">LY</div>
+                      <div class="comment-meta">
+                        Lyubo · <span class="comment-dept">Risk</span> · 14:55
+                      </div>
+                    </div>
+                    <div class="comment-text">
+                      From risk perspective OK after adding VaR monitoring.
+                    </div>
+                  </div>
+                  <div class="comment-item">
+                    <div class="comment-header">
+                      <div class="comment-avatar">JS</div>
+                      <div class="comment-meta">
+                        Jaap · Trader · 15:12
+                      </div>
+                    </div>
+                    <div class="comment-text">
+                      Updated wording according to feedback.
+                    </div>
+                  </div>
+                </div>
+                <div class="actions">
+                  <textarea placeholder="Add comment"></textarea>
+                  <div class="actions-buttons">
+                    <button class="btn-primary">Send comment</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APPROVER VIEW -->
+      <div class="role-view" id="view-approver">
+        <div class="panel">
+          <div class="command-bar">
+            <button class="cmd-btn">Back</button>
+            <button class="cmd-btn-primary">Approve</button>
+            <button class="cmd-btn-accent">Return</button>
+          </div>
+        </div>
+
+        <div class="panel layout-main">
+          <!-- form (read-only / partial) -->
+          <div class="form-wrapper">
+            <div class="form-grid">
+              <div>
+                <div class="field-label">Sponsor</div>
+                <div class="field-input">Markets</div>
+
+                <div class="field-label">Trader</div>
+                <div class="field-input">Jaap Smolders</div>
+
+                <div class="field-label">Responsible person</div>
+                <div class="field-input">Angela S.</div>
+
+                <div class="field-label">Desk / Book</div>
+                <div class="field-input">EQ – Structured Products / EQ_STRAT_BOOK_01</div>
+              </div>
+              <div>
+                <div class="field-label">Go-live date</div>
+                <div class="field-input">01/02/2025</div>
+
+                <div class="field-label">Products</div>
+                <div class="field-input">Equity options, delta one, swaps</div>
+
+                <div class="field-label">Key limits</div>
+                <div class="field-input">Daily VaR 2m, single-name limit 1m</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tracker">
+            <div>
+              <div class="panel-title">Progress</div>
+              <div class="timeline-item completed">
+                <div class="timeline-title">Submitted</div>
+              </div>
+              <div class="timeline-item current">
+                <div class="timeline-title">Department review</div>
+                <div class="timeline-sub">Your decision pending</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-title">Next departments</div>
+              </div>
+
+              <div class="panel-title" style="margin-top:10px;">Departments</div>
+              <div class="badge-row"><span>Compliance</span><span class="badge badge-pending">Pending</span></div>
+              <div class="badge-row"><span>Risk</span><span class="badge badge-waiting">Waiting</span></div>
+              <div class="badge-row"><span>IT</span><span class="badge badge-waiting">Waiting</span></div>
+              <div class="badge-row"><span>Committee</span><span class="badge badge-waiting">Waiting</span></div>
+            </div>
+            <div>
+              <div class="comments-panel">
+                <div class="comments-header-row">
+                  <div class="comments-title">Comments & decision</div>
+                  <div class="comments-counter">1 entry</div>
+                </div>
+                <div class="comments-list">
+                  <div class="comment-item">
+                    <div class="comment-header">
+                      <div class="comment-avatar">JS</div>
+                      <div class="comment-meta">
+                        Jaap · Trader · 10:12
+                      </div>
+                    </div>
+                    <div class="comment-text">
+                      Initial request created.
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-title" style="margin:6px 0 4px;">Decision</div>
+                <div class="actions">
+                  <textarea placeholder="Comment"></textarea>
+                  <div class="actions-buttons">
+                    <button class="btn-return">Return</button>
+                    <button class="btn-approve">Approve</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMMITTEE VIEW -->
+      <div class="role-view" id="view-committee">
+        <div class="panel">
+          <div class="command-bar">
+            <button class="cmd-btn">Back</button>
+            <button class="cmd-btn-primary">Final approve</button>
+            <button class="cmd-btn-accent">Return</button>
+          </div>
+        </div>
+
+        <div class="panel layout-main">
+          <div class="form-wrapper">
+            <div class="panel-title">Summary</div>
+            <ul style="font-size:12px; padding-left:18px; color:var(--text-main); margin-top:4px;">
+              <li>Compliance – approved</li>
+              <li>Risk – approved</li>
+              <li>IT – approved</li>
+            </ul>
+            <div class="form-grid" style="margin-top:10px;">
+              <div>
+                <div class="field-label">Trader</div>
+                <div class="field-input">Jaap Smolders</div>
+
+                <div class="field-label">Desk / Book</div>
+                <div class="field-input">EQ – Structured Products / EQ_STRAT_BOOK_01</div>
+              </div>
+              <div>
+                <div class="field-label">Main products</div>
+                <div class="field-input">Equity options, delta one, swaps</div>
+
+                <div class="field-label">Go-live date</div>
+                <div class="field-input">01/02/2025</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tracker">
+            <div>
+              <div class="comments-panel">
+                <div class="comments-header-row">
+                  <div class="comments-title">Status &amp; comments</div>
+                  <div class="comments-counter">3 departments</div>
+                </div>
+                <div class="comments-list">
+                  <!-- Compliance -->
+                  <div class="dept-comment">
+                    <div class="badge-row">
+                      <span>Compliance</span>
+                      <span class="badge badge-approved">Approved</span>
+                    </div>
+                    <div class="comment-item">
+                      <div class="comment-header">
+                        <div class="comment-avatar">AS</div>
+                        <div class="comment-meta">
+                          Angela · Compliance · 09:45
+                        </div>
+                      </div>
+                      <div class="comment-text">
+                        Compliance checks completed, no further remarks.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Risk -->
+                  <div class="dept-comment">
+                    <div class="badge-row">
+                      <span>Risk</span>
+                      <span class="badge badge-approved">Approved</span>
+                    </div>
+                    <div class="comment-item">
+                      <div class="comment-header">
+                        <div class="comment-avatar">LY</div>
+                        <div class="comment-meta">
+                          Lyubo · Risk · 10:05
+                        </div>
+                      </div>
+                      <div class="comment-text">
+                        Risk appetite within policy limits.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- IT -->
+                  <div class="dept-comment">
+                    <div class="badge-row">
+                      <span>IT</span>
+                      <span class="badge badge-approved">Approved</span>
+                    </div>
+                    <div class="comment-item">
+                      <div class="comment-header">
+                        <div class="comment-avatar">IT</div>
+                        <div class="comment-meta">
+                          IT Dept · 10:20
+                        </div>
+                      </div>
+                      <div class="comment-text">
+                        Technical implementation validated, no blocking issues.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Committee -->
+                  <div class="dept-comment">
+                    <div class="badge-row">
+                      <span>Committee</span>
+                      <span class="badge badge-pending">Pending</span>
+                    </div>
+                    <div class="comment-item">
+                      <div class="comment-text">
+                        No committee decision yet.
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="panel-title">Final wording</div>
+              <div class="actions">
+                <textarea></textarea>
+                <div class="actions-buttons">
+                  <button class="btn-return">Return</button>
+                  <button class="btn-approve">Approve &amp; send</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- right -->
+
+  </div><!-- app-body -->
+</div><!-- app-frame -->
+
+<script>
+  document.querySelectorAll('.role-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const role = btn.getAttribute('data-role');
+      document.querySelectorAll('.role-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.role-view').forEach(v => v.classList.remove('active'));
+      document.getElementById('view-' + role).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
