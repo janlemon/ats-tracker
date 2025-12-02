@@ -231,8 +231,8 @@
 
   /* MAIN CONTENT AREA */
   .content-area {
-    display:grid;
-    grid-template-columns: 280px minmax(0,1fr);
+    display:flex;
+    flex-direction:column;
     gap:10px;
   }
 
@@ -306,6 +306,21 @@
     border-radius:6px;
     border:1px solid var(--border);
     padding:12px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:10px;
+  }
+
+  .workflow-left {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .workflow-right {
+    display:flex;
+    flex-direction:column;
+    gap:8px;
   }
 
   .workflow-step {
@@ -915,71 +930,71 @@
 
     <!-- WORKFLOW OVERVIEW (visible to all roles) -->
     <div class="workflow-steps">
-      <div class="workflow-step completed">
-        <div class="step-number">1</div>
-        <div class="step-content">
-          <div class="step-title">Trader submits ATS form</div>
-          <div class="step-description">Submitted: 14/01/2025 10:12</div>
-          <div class="step-participants">
-            <span class="participant-tag">📧 Email sent to: ATS Committee, Compliance, Risk, IT</span>
+      
+      <!-- LEFT: Timeline -->
+      <div class="workflow-left">
+        <div class="workflow-step completed">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <div class="step-title">Trader submits ATS form</div>
+            <div class="step-description">Submitted: 14/01/2025 10:12</div>
+            <div class="step-participants">
+              <span class="participant-tag">📧 Email sent to: ATS Committee, Compliance, Risk, IT</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="workflow-step completed">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <div class="step-title">Review by Compliance, Risk, IT</div>
+            <div class="step-description">Each department reviews and communicates with trader if needed</div>
+            <div class="step-participants">
+              <span class="participant-tag">✓ Compliance</span>
+              <span class="participant-tag">✓ Risk</span>
+              <span class="participant-tag">✓ IT</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="workflow-step active">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <div class="step-title">Departments finalize wording & recommendation</div>
+            <div class="step-description">All 3 departments must approve before sending to Committee</div>
+            <div class="step-participants">
+              <span class="participant-tag">Waiting for final wording</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <div class="step-title">ATS Committee review & vote</div>
+            <div class="step-description">Suzana/Tomas, Lyubo, Angela - each member votes</div>
+            <div class="step-participants">
+              <span class="participant-tag">Suzana/Tomas</span>
+              <span class="participant-tag">Lyubo</span>
+              <span class="participant-tag">Angela</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <div class="step-title">Notification sent</div>
+            <div class="step-description">If approved, notify C, R, IT, TDO with wording</div>
+            <div class="step-participants">
+              <span class="participant-tag">📧 Compliance, Risk, IT, TDO</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="workflow-step completed">
-        <div class="step-number">2</div>
-        <div class="step-content">
-          <div class="step-title">Review by Compliance, Risk, IT</div>
-          <div class="step-description">Each department reviews and communicates with trader if needed</div>
-          <div class="step-participants">
-            <span class="participant-tag">✓ Compliance</span>
-            <span class="participant-tag">✓ Risk</span>
-            <span class="participant-tag">✓ IT</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="workflow-step active">
-        <div class="step-number">3</div>
-        <div class="step-content">
-          <div class="step-title">Departments finalize wording & recommendation</div>
-          <div class="step-description">All 3 departments must approve before sending to Committee</div>
-          <div class="step-participants">
-            <span class="participant-tag">Waiting for final wording</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="workflow-step">
-        <div class="step-number">4</div>
-        <div class="step-content">
-          <div class="step-title">ATS Committee review & vote</div>
-          <div class="step-description">Suzana/Tomas, Lyubo, Angela - each member votes</div>
-          <div class="step-participants">
-            <span class="participant-tag">Suzana/Tomas</span>
-            <span class="participant-tag">Lyubo</span>
-            <span class="participant-tag">Angela</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="workflow-step">
-        <div class="step-number">5</div>
-        <div class="step-content">
-          <div class="step-title">Notification sent</div>
-          <div class="step-description">If approved, notify C, R, IT, TDO with wording</div>
-          <div class="step-participants">
-            <span class="participant-tag">📧 Compliance, Risk, IT, TDO</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CONTENT AREA -->
-    <div class="content-area">
-
-      <!-- LEFT: STATUS SIDEBAR -->
-      <div class="status-sidebar">
+      <!-- RIGHT: Status Overview -->
+      <div class="workflow-right">
         
         <!-- DEPARTMENT STATUS -->
         <div class="status-card">
@@ -1042,14 +1057,19 @@
             <span class="status-icon waiting">📋</span>
             TDO Status
           </div>
-          <div style="font-size:11px; color:var(--text-muted);">
+          <div style="font-size:10px; color:var(--text-muted);">
             Will be notified after Committee approval
           </div>
         </div>
 
       </div>
 
-      <!-- RIGHT: ROLE-SPECIFIC CONTENT -->
+    </div>
+
+    <!-- CONTENT AREA -->
+    <div class="content-area">
+
+      <!-- ROLE-SPECIFIC CONTENT -->
       <div class="right">
 
       <!-- TRADER VIEW -->
