@@ -24,18 +24,21 @@
   }
 
   .app-frame {
-    margin: 32px;
+    margin: 16px;
     background: var(--surface);
-    border-radius: 10px;
-    box-shadow: 0 14px 35px rgba(15,23,42,0.16);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(15,23,42,0.12);
     overflow: hidden;
+    max-height: calc(100vh - 32px);
+    display: flex;
+    flex-direction: column;
   }
 
   /* HEADER */
   .app-header {
     background: var(--primary);
     color: #fff;
-    padding: 12px 24px;
+    padding: 8px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -92,10 +95,10 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:8px 24px 6px;
+    padding:6px 16px;
     background:#f8f9fc;
     border-bottom:1px solid var(--border);
-    gap:16px;
+    gap:12px;
   }
 
   .meta-left {
@@ -166,16 +169,16 @@
   .role-tabs {
     display:flex;
     gap:4px;
-    padding: 6px 16px 6px;
+    padding: 4px 12px;
     border-bottom:1px solid var(--border);
     background:#fafbfc;
   }
 
   .role-tab {
-    padding:6px 14px;
+    padding:4px 12px;
     border-radius:999px;
     border:1px solid transparent;
-    font-size:12px;
+    font-size:11px;
     cursor:pointer;
     background:transparent;
     color:var(--text-muted);
@@ -219,40 +222,42 @@
   .app-body {
     display:flex;
     flex-direction:column;
-    gap:16px;
-    padding:16px;
+    gap:10px;
+    padding:10px;
     background:var(--bg);
+    overflow-y:auto;
+    flex:1;
   }
 
   /* MAIN CONTENT AREA */
   .content-area {
     display:grid;
-    grid-template-columns: 320px minmax(0,1fr);
-    gap:16px;
+    grid-template-columns: 280px minmax(0,1fr);
+    gap:10px;
   }
 
   /* STATUS SIDEBAR */
   .status-sidebar {
     display:flex;
     flex-direction:column;
-    gap:12px;
+    gap:8px;
   }
 
   .status-card {
     background:var(--surface);
-    border-radius:8px;
+    border-radius:6px;
     border:1px solid var(--border);
-    padding:14px;
+    padding:10px;
   }
 
   .status-card-title {
-    font-size:13px;
+    font-size:12px;
     font-weight:600;
     color:var(--text-main);
-    margin-bottom:10px;
+    margin-bottom:8px;
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:6px;
   }
 
   .status-icon {
@@ -273,11 +278,11 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:8px 10px;
-    margin-bottom:6px;
-    border-radius:6px;
+    padding:6px 8px;
+    margin-bottom:4px;
+    border-radius:4px;
     background:#f8f9fc;
-    font-size:12px;
+    font-size:11px;
   }
 
   .dept-status:last-child {
@@ -298,15 +303,15 @@
   /* WORKFLOW STEPS */
   .workflow-steps {
     background:var(--surface);
-    border-radius:8px;
+    border-radius:6px;
     border:1px solid var(--border);
-    padding:16px;
+    padding:12px;
   }
 
   .workflow-step {
     display:flex;
-    gap:12px;
-    margin-bottom:20px;
+    gap:10px;
+    margin-bottom:14px;
     position:relative;
   }
 
@@ -317,9 +322,9 @@
   .workflow-step:not(:last-child)::after {
     content:"";
     position:absolute;
-    left:14px;
-    top:32px;
-    bottom:-20px;
+    left:13px;
+    top:28px;
+    bottom:-14px;
     width:2px;
     background:#e0e3e8;
   }
@@ -329,16 +334,16 @@
   }
 
   .step-number {
-    width:28px;
-    height:28px;
-    min-width:28px;
+    width:26px;
+    height:26px;
+    min-width:26px;
     border-radius:50%;
     background:#e0e3e8;
     color:#5a6c7d;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:13px;
+    font-size:12px;
     font-weight:600;
     position:relative;
     z-index:1;
@@ -359,16 +364,16 @@
   }
 
   .step-title {
-    font-size:13px;
+    font-size:12px;
     font-weight:600;
     color:var(--text-main);
-    margin-bottom:4px;
+    margin-bottom:2px;
   }
 
   .step-description {
-    font-size:11px;
+    font-size:10px;
     color:var(--text-muted);
-    margin-bottom:6px;
+    margin-bottom:4px;
   }
 
   .step-participants {
@@ -515,16 +520,16 @@
 
   .panel {
     background:var(--surface);
-    border-radius:8px;
+    border-radius:6px;
     border:1px solid var(--border);
-    padding:12px 16px;
+    padding:10px 12px;
   }
 
   .panel-title {
-    font-size:13px;
+    font-size:12px;
     font-weight:600;
     color:var(--text-main);
-    margin-bottom:8px;
+    margin-bottom:6px;
   }
 
   .panel-subtitle {
@@ -623,13 +628,14 @@
   .form-grid {
     display:grid;
     grid-template-columns: repeat(2,minmax(0,1fr));
-    gap:16px 24px;
-    font-size:12px;
+    gap:10px 16px;
+    font-size:11px;
   }
 
   .field-label {
     color:var(--text-main);
-    margin-bottom:4px;
+    margin-bottom:3px;
+    font-size:11px;
   }
 
   .field-input {
