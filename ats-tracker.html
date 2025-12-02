@@ -231,8 +231,8 @@
 
   /* MAIN CONTENT AREA */
   .content-area {
-    display:flex;
-    flex-direction:column;
+    display:grid;
+    grid-template-columns: 240px minmax(0,1fr);
     gap:10px;
   }
 
@@ -240,7 +240,7 @@
   .status-sidebar {
     display:flex;
     flex-direction:column;
-    gap:8px;
+    gap:6px;
   }
 
   .status-card {
@@ -305,22 +305,7 @@
     background:var(--surface);
     border-radius:6px;
     border:1px solid var(--border);
-    padding:12px;
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap:10px;
-  }
-
-  .workflow-left {
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-  }
-
-  .workflow-right {
-    display:flex;
-    flex-direction:column;
-    gap:8px;
+    padding:10px;
   }
 
   .workflow-step {
@@ -928,148 +913,86 @@
   <!-- BODY -->
   <div class="app-body">
 
-    <!-- WORKFLOW OVERVIEW (visible to all roles) -->
-    <div class="workflow-steps">
-      
-      <!-- LEFT: Timeline -->
-      <div class="workflow-left">
+    <!-- CONTENT AREA -->
+    <div class="content-area">
+
+      <!-- LEFT: WORKFLOW TIMELINE -->
+      <div class="workflow-steps">
         <div class="workflow-step completed">
           <div class="step-number">1</div>
           <div class="step-content">
-            <div class="step-title">Trader submits ATS form</div>
-            <div class="step-description">Submitted: 14/01/2025 10:12</div>
-            <div class="step-participants">
-              <span class="participant-tag">📧 Email sent to: ATS Committee, Compliance, Risk, IT</span>
-            </div>
+            <div class="step-title">Trader submits</div>
+            <div class="step-description">14/01 10:12</div>
           </div>
         </div>
 
         <div class="workflow-step completed">
           <div class="step-number">2</div>
           <div class="step-content">
-            <div class="step-title">Review by Compliance, Risk, IT</div>
-            <div class="step-description">Each department reviews and communicates with trader if needed</div>
-            <div class="step-participants">
-              <span class="participant-tag">✓ Compliance</span>
-              <span class="participant-tag">✓ Risk</span>
-              <span class="participant-tag">✓ IT</span>
-            </div>
+            <div class="step-title">C/R/IT Review</div>
+            <div class="step-description">All approved</div>
           </div>
         </div>
 
         <div class="workflow-step active">
           <div class="step-number">3</div>
           <div class="step-content">
-            <div class="step-title">Departments finalize wording & recommendation</div>
-            <div class="step-description">All 3 departments must approve before sending to Committee</div>
-            <div class="step-participants">
-              <span class="participant-tag">Waiting for final wording</span>
-            </div>
+            <div class="step-title">Finalize wording</div>
+            <div class="step-description">In progress</div>
           </div>
         </div>
 
         <div class="workflow-step">
           <div class="step-number">4</div>
           <div class="step-content">
-            <div class="step-title">ATS Committee review & vote</div>
-            <div class="step-description">Suzana/Tomas, Lyubo, Angela - each member votes</div>
-            <div class="step-participants">
-              <span class="participant-tag">Suzana/Tomas</span>
-              <span class="participant-tag">Lyubo</span>
-              <span class="participant-tag">Angela</span>
-            </div>
+            <div class="step-title">Committee vote</div>
+            <div class="step-description">Waiting</div>
           </div>
         </div>
 
         <div class="workflow-step">
           <div class="step-number">5</div>
           <div class="step-content">
-            <div class="step-title">Notification sent</div>
-            <div class="step-description">If approved, notify C, R, IT, TDO with wording</div>
-            <div class="step-participants">
-              <span class="participant-tag">📧 Compliance, Risk, IT, TDO</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT: Status Overview -->
-      <div class="workflow-right">
-        
-        <!-- DEPARTMENT STATUS -->
-        <div class="status-card">
-          <div class="status-card-title">
-            <span class="status-icon approved">✓</span>
-            Department Reviews
-          </div>
-          
-          <div class="dept-status">
-            <div>
-              <div class="dept-name">Compliance</div>
-              <div class="dept-email">compliance@ezpada.com</div>
-            </div>
-            <span class="badge badge-approved">Approved</span>
-          </div>
-
-          <div class="dept-status">
-            <div>
-              <div class="dept-name">Market Risk</div>
-              <div class="dept-email">marketrisk@ezpada.com</div>
-            </div>
-            <span class="badge badge-approved">Approved</span>
-          </div>
-
-          <div class="dept-status">
-            <div>
-              <div class="dept-name">IT</div>
-              <div class="dept-email">Lyubo (direct)</div>
-            </div>
-            <span class="badge badge-approved">Approved</span>
+            <div class="step-title">Notification</div>
+            <div class="step-description">Pending</div>
           </div>
         </div>
 
-        <!-- COMMITTEE STATUS -->
-        <div class="status-card">
-          <div class="status-card-title">
-            <span class="status-icon pending">⏳</span>
-            ATS Committee
+        <div style="margin-top:12px; padding-top:10px; border-top:1px solid var(--border);">
+          <div class="status-card-title" style="margin-bottom:6px;">Departments</div>
+          <div class="dept-status" style="margin-bottom:3px;">
+            <span style="font-size:10px;">Compliance</span>
+            <span class="badge badge-approved" style="font-size:9px; padding:1px 6px;">✓</span>
           </div>
-          
-          <div class="dept-status">
-            <div class="dept-name">Suzana / Tomas</div>
-            <span class="badge badge-pending">Pending</span>
+          <div class="dept-status" style="margin-bottom:3px;">
+            <span style="font-size:10px;">Risk</span>
+            <span class="badge badge-approved" style="font-size:9px; padding:1px 6px;">✓</span>
           </div>
-
-          <div class="dept-status">
-            <div class="dept-name">Lyubomir Gunev</div>
-            <span class="badge badge-approved">Approved</span>
-          </div>
-
-          <div class="dept-status">
-            <div class="dept-name">Angela McCormack</div>
-            <span class="badge badge-approved">Approved</span>
+          <div class="dept-status" style="margin-bottom:3px;">
+            <span style="font-size:10px;">IT</span>
+            <span class="badge badge-approved" style="font-size:9px; padding:1px 6px;">✓</span>
           </div>
         </div>
 
-        <!-- TDO NOTIFICATION -->
-        <div class="status-card">
-          <div class="status-card-title">
-            <span class="status-icon waiting">📋</span>
-            TDO Status
+        <div style="margin-top:8px; padding-top:8px; border-top:1px solid var(--border);">
+          <div class="status-card-title" style="margin-bottom:6px;">Committee</div>
+          <div class="dept-status" style="margin-bottom:3px;">
+            <span style="font-size:10px;">Suzana/T.</span>
+            <span class="badge badge-pending" style="font-size:9px; padding:1px 6px;">⏳</span>
           </div>
-          <div style="font-size:10px; color:var(--text-muted);">
-            Will be notified after Committee approval
+          <div class="dept-status" style="margin-bottom:3px;">
+            <span style="font-size:10px;">Lyubo</span>
+            <span class="badge badge-approved" style="font-size:9px; padding:1px 6px;">✓</span>
+          </div>
+          <div class="dept-status" style="margin-bottom:3px;">
+            <span style="font-size:10px;">Angela</span>
+            <span class="badge badge-approved" style="font-size:9px; padding:1px 6px;">✓</span>
           </div>
         </div>
 
       </div>
 
-    </div>
-
-    <!-- CONTENT AREA -->
-    <div class="content-area">
-
-      <!-- ROLE-SPECIFIC CONTENT -->
+      <!-- RIGHT: ROLE-SPECIFIC CONTENT -->
       <div class="right">
 
       <!-- TRADER VIEW -->
