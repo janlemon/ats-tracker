@@ -232,7 +232,7 @@
   /* MAIN CONTENT AREA */
   .content-area {
     display:grid;
-    grid-template-columns: 240px minmax(0,1fr);
+    grid-template-columns: 220px minmax(0,1fr);
     gap:10px;
   }
 
@@ -305,27 +305,29 @@
     background:var(--surface);
     border-radius:6px;
     border:1px solid var(--border);
-    padding:10px;
+    padding:8px 12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:8px;
   }
 
   .workflow-step {
     display:flex;
-    gap:10px;
-    margin-bottom:14px;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
     position:relative;
-  }
-
-  .workflow-step:last-child {
-    margin-bottom:0;
+    flex:1;
   }
 
   .workflow-step:not(:last-child)::after {
     content:"";
     position:absolute;
-    left:13px;
-    top:28px;
-    bottom:-14px;
-    width:2px;
+    right:-8px;
+    top:13px;
+    width:8px;
+    height:2px;
     background:#e0e3e8;
   }
 
@@ -343,7 +345,7 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:12px;
+    font-size:11px;
     font-weight:600;
     position:relative;
     z-index:1;
@@ -360,20 +362,22 @@
   }
 
   .step-content {
-    flex:1;
+    text-align:center;
   }
 
   .step-title {
-    font-size:12px;
+    font-size:10px;
     font-weight:600;
     color:var(--text-main);
-    margin-bottom:2px;
+    margin-bottom:0;
+    white-space:nowrap;
   }
 
   .step-description {
-    font-size:10px;
+    font-size:9px;
     color:var(--text-muted);
-    margin-bottom:4px;
+    margin-bottom:0;
+    display:none;
   }
 
   .step-participants {
@@ -389,6 +393,81 @@
     font-size:10px;
     background:rgba(0,45,84,0.08);
     color:var(--primary);
+  }
+
+  /* ATS LIST */
+  .ats-list {
+    background:var(--surface);
+    border-radius:6px;
+    border:1px solid var(--border);
+    padding:8px;
+  }
+
+  .ats-list-title {
+    font-size:11px;
+    font-weight:600;
+    color:var(--text-main);
+    margin-bottom:6px;
+  }
+
+  .search-input {
+    width:100%;
+    padding:5px 8px;
+    border-radius:4px;
+    border:1px solid #d0d5dd;
+    font-size:11px;
+    margin-bottom:8px;
+  }
+
+  .ats-item {
+    display:flex;
+    gap:8px;
+    padding:6px;
+    border-radius:4px;
+    cursor:pointer;
+    margin-bottom:4px;
+  }
+
+  .ats-item:hover {
+    background:#f4f6fb;
+  }
+
+  .ats-item.active {
+    background:rgba(0,45,84,0.08);
+    border-left:2px solid var(--primary);
+  }
+
+  .avatar-circle {
+    width:28px;
+    height:28px;
+    min-width:28px;
+    border-radius:50%;
+    background:#19a974;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:600;
+  }
+
+  .ats-item-info {
+    flex:1;
+    min-width:0;
+  }
+
+  .ats-title {
+    font-size:11px;
+    font-weight:600;
+    color:var(--text-main);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .ats-sub {
+    font-size:9px;
+    color:var(--text-muted);
   }
 
   /* MODAL */
@@ -913,80 +992,89 @@
   <!-- BODY -->
   <div class="app-body">
 
+    <!-- HORIZONTAL WORKFLOW TIMELINE -->
+    <div class="workflow-steps">
+      <div class="workflow-step completed">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">Submit</div>
+        </div>
+      </div>
+
+      <div class="workflow-step completed">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">Review (C/R/IT)</div>
+        </div>
+      </div>
+
+      <div class="workflow-step active">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">Finalize Wording</div>
+        </div>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <div class="step-title">Committee Vote</div>
+        </div>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <div class="step-title">Approved</div>
+        </div>
+      </div>
+    </div>
+
     <!-- CONTENT AREA -->
     <div class="content-area">
 
-      <!-- LEFT: WORKFLOW TIMELINE -->
-      <div class="workflow-steps">
-        <div class="workflow-step completed">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <div class="step-title">Trader submits</div>
-            <div class="step-description">14/01 10:12</div>
+      <!-- LEFT: ATS REQUESTS LIST -->
+      <div class="ats-list">
+        <div class="ats-list-title">ATS Requests</div>
+        <input class="search-input" placeholder="Search..." />
+        
+        <div class="ats-item active">
+          <div class="avatar-circle">Pd</div>
+          <div class="ats-item-info">
+            <div class="ats-title">Publication doe expectation</div>
+            <div class="ats-sub">Jaap S. · 14/01/2025</div>
           </div>
         </div>
 
-        <div class="workflow-step completed">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <div class="step-title">C/R/IT Review</div>
-            <div class="step-description">All approved</div>
+        <div class="ats-item">
+          <div class="avatar-circle" style="background:#e74c3c;">Eq</div>
+          <div class="ats-item-info">
+            <div class="ats-title">Equity delta hedging</div>
+            <div class="ats-sub">John D. · 10/01/2025</div>
           </div>
         </div>
 
-        <div class="workflow-step active">
-          <div class="step-number">3</div>
-          <div class="step-content">
-            <div class="step-title">Finalize wording</div>
-            <div class="step-description">In progress</div>
+        <div class="ats-item">
+          <div class="avatar-circle" style="background:#3498db;">Fx</div>
+          <div class="ats-item-info">
+            <div class="ats-title">FX spot arbitrage</div>
+            <div class="ats-sub">Anna K. · 08/01/2025</div>
           </div>
         </div>
 
-        <div class="workflow-step">
-          <div class="step-number">4</div>
-          <div class="step-content">
-            <div class="step-title">Committee vote</div>
-            <div class="step-description">Waiting</div>
+        <div style="margin-top:12px; padding-top:8px; border-top:1px solid var(--border);">
+          <div class="ats-list-title">Status Overview</div>
+          <div class="dept-status" style="margin-bottom:3px; padding:4px 6px;">
+            <span style="font-size:9px;">Compliance</span>
+            <span class="badge badge-approved" style="font-size:8px; padding:1px 5px;">✓</span>
           </div>
-        </div>
-
-        <div class="workflow-step">
-          <div class="step-number">5</div>
-          <div class="step-content">
-            <div class="step-title">Notification</div>
-            <div class="step-description">Pending</div>
+          <div class="dept-status" style="margin-bottom:3px; padding:4px 6px;">
+            <span style="font-size:9px;">Risk</span>
+            <span class="badge badge-approved" style="font-size:8px; padding:1px 5px;">✓</span>
           </div>
-        </div>
-
-        <div style="margin-top:12px; padding-top:10px; border-top:1px solid var(--border);">
-          <div class="status-card-title" style="margin-bottom:6px;">Departments</div>
-          <div class="dept-status" style="margin-bottom:3px;">
-            <span style="font-size:10px;">Compliance</span>
-            <span class="badge badge-approved" style="font-size:9px; padding:1px 6px;">✓</span>
-          </div>
-          <div class="dept-status" style="margin-bottom:3px;">
-            <span style="font-size:10px;">Risk</span>
-            <span class="badge badge-approved" style="font-size:9px; padding:1px 6px;">✓</span>
-          </div>
-          <div class="dept-status" style="margin-bottom:3px;">
-            <span style="font-size:10px;">IT</span>
-            <span class="badge badge-approved" style="font-size:9px; padding:1px 6px;">✓</span>
-          </div>
-        </div>
-
-        <div style="margin-top:8px; padding-top:8px; border-top:1px solid var(--border);">
-          <div class="status-card-title" style="margin-bottom:6px;">Committee</div>
-          <div class="dept-status" style="margin-bottom:3px;">
-            <span style="font-size:10px;">Suzana/T.</span>
-            <span class="badge badge-pending" style="font-size:9px; padding:1px 6px;">⏳</span>
-          </div>
-          <div class="dept-status" style="margin-bottom:3px;">
-            <span style="font-size:10px;">Lyubo</span>
-            <span class="badge badge-approved" style="font-size:9px; padding:1px 6px;">✓</span>
-          </div>
-          <div class="dept-status" style="margin-bottom:3px;">
-            <span style="font-size:10px;">Angela</span>
-            <span class="badge badge-approved" style="font-size:9px; padding:1px 6px;">✓</span>
+          <div class="dept-status" style="margin-bottom:3px; padding:4px 6px;">
+            <span style="font-size:9px;">IT</span>
+            <span class="badge badge-approved" style="font-size:8px; padding:1px 5px;">✓</span>
           </div>
         </div>
 
