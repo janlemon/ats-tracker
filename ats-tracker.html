@@ -995,37 +995,30 @@
     <!-- HORIZONTAL WORKFLOW TIMELINE -->
     <div class="workflow-steps">
       <div class="workflow-step completed">
-        <div class="step-number">1</div>
+        <div class="step-number">✓</div>
         <div class="step-content">
-          <div class="step-title">Submit</div>
+          <div class="step-title">Trader Submitted</div>
         </div>
       </div>
 
       <div class="workflow-step completed">
-        <div class="step-number">2</div>
+        <div class="step-number">✓</div>
         <div class="step-content">
-          <div class="step-title">Review (C/R/IT)</div>
+          <div class="step-title">Departments OK</div>
         </div>
       </div>
 
       <div class="workflow-step active">
-        <div class="step-number">3</div>
+        <div class="step-number">→</div>
         <div class="step-content">
-          <div class="step-title">Finalize Wording</div>
+          <div class="step-title">Committee Voting</div>
         </div>
       </div>
 
       <div class="workflow-step">
         <div class="step-number">4</div>
         <div class="step-content">
-          <div class="step-title">Committee Vote</div>
-        </div>
-      </div>
-
-      <div class="workflow-step">
-        <div class="step-number">5</div>
-        <div class="step-content">
-          <div class="step-title">Approved</div>
+          <div class="step-title">TDO Notified</div>
         </div>
       </div>
     </div>
@@ -1035,26 +1028,23 @@
 
       <!-- LEFT: ATS REQUESTS LIST -->
       <div class="ats-list">
-        <div class="ats-list-title">Current Status</div>
+        <div class="ats-list-title">📋 Current Request Status</div>
         
-        <!-- Approvals -->
-        <div style="background:#f8f9fc; padding:6px; border-radius:4px; margin-bottom:8px;">
-          <div style="font-size:9px; color:var(--text-muted); margin-bottom:4px;">APPROVED BY:</div>
-          <div style="display:flex; flex-wrap:wrap; gap:3px; margin-bottom:6px;">
-            <span class="badge badge-approved" style="font-size:9px; padding:2px 6px;">✓ Compliance</span>
-            <span class="badge badge-approved" style="font-size:9px; padding:2px 6px;">✓ Risk</span>
-            <span class="badge badge-approved" style="font-size:9px; padding:2px 6px;">✓ IT</span>
-            <span class="badge badge-approved" style="font-size:9px; padding:2px 6px;">✓ Lyubo</span>
-            <span class="badge badge-approved" style="font-size:9px; padding:2px 6px;">✓ Angela</span>
+        <!-- Simple Status Box -->
+        <div style="background:#fff3cd; border:1px solid #ffc107; padding:8px; border-radius:4px; margin-bottom:12px;">
+          <div style="font-size:11px; font-weight:600; color:#856404; margin-bottom:6px;">
+            ⏳ WAITING FOR APPROVAL
           </div>
-          <div style="font-size:9px; color:var(--text-muted); margin-bottom:3px;">WAITING FOR:</div>
-          <div style="display:flex; flex-wrap:wrap; gap:3px;">
-            <span class="badge badge-pending" style="font-size:9px; padding:2px 6px;">⏳ Suzana/Tomas</span>
+          <div style="font-size:10px; color:#856404; margin-bottom:6px;">
+            Need vote from: <strong>Suzana/Tomas</strong>
+          </div>
+          <div style="font-size:9px; color:#856404;">
+            Already approved: Compliance, Risk, IT, Lyubo, Angela
           </div>
         </div>
 
-        <div class="ats-list-title">ATS Requests</div>
-        <input class="search-input" placeholder="Search..." />
+        <div class="ats-list-title">📁 All ATS Requests</div>
+        <input class="search-input" placeholder="Search requests..." />
         
         <div class="ats-item active">
           <div class="avatar-circle">Pd</div>
